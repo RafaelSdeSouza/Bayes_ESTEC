@@ -2,7 +2,7 @@
 require(mdatools)
 
 N = 5
-Nsamp = 1e6
+Nsamp = 1000
 sigma_x = 2
 
 
@@ -32,23 +32,18 @@ freq_CI_mu <- function(D,sigma,frac=0.95){
   return(c(mu - Nsigma * sigma_mu, mu + Nsigma * sigma_mu))
 }
   
-
 freq_CI_mu(D,sigma_x)
-
-
 
 
 bayes_CR_mu <- function(D, sigma, frac=0.95){
 Nsigma = sqrt(2)*erfinv(frac)
-mu = mean(x)
+mu = mean(D)
 sigma_mu = sigma/sqrt(length(D))
 return(c(mu - Nsigma * sigma_mu, mu + Nsigma * sigma_mu))
 }
 
 
+bayes_CR_mu(D,sigma_x)
 
 
 
-type1 <- rnorm(50, mean = 0, sd = sqrt(2500))
-type2 <- rnorm(50, mean = 0, sd = sqrt(1700))
-var.test(type1, type2, alternative = "two.sided")
