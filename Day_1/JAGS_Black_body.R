@@ -23,13 +23,6 @@ y <- rlnorm(nobs, muL, sdlog = sd)        # create y as  random normal variate, 
 plot(lambda,y)
 
 
-#        obsy[i] ~ dlnorm(yt[i], pow(tau,-2))
-#        yt[i] <- log(mu[i]) - 0.5*log(1+(pow(tau/mu[i],2)))  
-#        mu[i] <- sfactor3Hedp(obsx[i], e1, gin, gout)    
-
-
-
-
 # MCMC solution via JAGS
 
 model.data <- list(Y = y,               # Response variable
