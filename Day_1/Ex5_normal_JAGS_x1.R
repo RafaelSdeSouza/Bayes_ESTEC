@@ -86,16 +86,6 @@ jagsfit <- jags(
            n.thin     = 1,
            n.burnin   = 2500)
 
-
-require(mcmcplots)
-
-traplot(jagsfit)
-
-denplot(jagsfit)
-
-#print(jagsfit,justify = "left", digits=2)
-
-
 # Plot
 yx <- jagsresults(x=jagsfit, params=c('Yx'))
 
