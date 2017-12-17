@@ -1,6 +1,6 @@
 # Course on Bayesian Statistics
 18-20 December 2017,  ESTEC - Noordwijk, The Netherlands   
-by [Rafael S. de Souza](drsouza@ad.unc.edu)  and [Emille E. O. Ishida](www.emilleishida.com)
+by  [Rafael S. de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O. Ishida](www.emilleishida.com)
 
 
 ## Day 1 - The Basics  
