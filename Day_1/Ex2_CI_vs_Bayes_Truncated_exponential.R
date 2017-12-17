@@ -30,10 +30,12 @@ ggplot(g,aes(x=x,y=y)) +
 
 
 # Simulate truncated exponential 
+y <- c(10,rexp(100) + 10) # Maybe there is a better way of doing this. 
+#The first 10 ensures to have one single observation equal to theoretical minimum to test the 
+#Frequentist and Bayesian approach against a hard coded scenario
 
-nobs <- 100
-covs <- data.frame(id = 1:nobs)
-y <- rexp(nobs) + 10 # Maybe there is a better way of doing this
+nobs <- length(y)
+
 
 # Check 
 hist(y)
@@ -66,33 +68,26 @@ approx_CI(y)
 # Construct data dictionary
 model.data <- list(Y = y,                               # Response variable
                    N = nobs,                           # Sample size
-                   new.t = time,
-                   new.N = length(time),
                    minD = min(y)
 )
 
 Exp <- "model{
-lambda <- 1/mu
-mu ~ dunif(1e-3, minD)                                        # standard deviation
+lambda <- 1/theta
+theta ~ dnorm(0,0.001)T(,minD)                                        # standard deviation
 # Likelihood function
 
 for (i in 1:N){
 Y[i] ~ dexp(lambda)
 }
 
-# Prediction
-for (i in 1:new.N ){
-S.t[i] <- exp(-(new.t[i])/mu)
-}
-
 }"
 
 inits <- function() {
-  list(mu = runif(1, 0, 10))
+  list(theta = runif(1, 0, 10))
 }
-params <- c("mu","S.t")
+params <- c("theta")
 
-fit <- jags(data = model.data,
+Surv_fit <- jags(data = model.data,
                 inits = inits,
                 parameters.to.save  = params,
                 model.file = textConnection(Exp),
@@ -102,44 +97,14 @@ fit <- jags(data = model.data,
                 n.burnin = 1000)
 
 
-S <- ggs(as.mcmc(fit)) %>%
-  filter(.,Parameter == "mu")
+S <- ggs(as.mcmc(Surv_fit)) %>%
+  filter(.,Parameter == "theta")
 
 ggplot(S,aes(x=value)) +
          geom_histogram(fill = "#f4901e",bins= 50,aes(y=..count../sum(..count..))) +
          theme_xkcd() +
-  xlab(expression(mu)) +
+  xlab(expression(theta)) +
   ylab("Frequency")
-
-
-
-
-jagsresults(x = fit , params=c("mu"),probs=c(0.005,0.025, 0.25, 0.5, 0.75, 0.975,0.995))
-
-
-
-# Frequentist data
-time <- seq(min(y),max(y),by=1)
-S.t = exp(-(time)/mu)
-survs.data <- data.frame(time=time, 
-                         survs=S.t)
-
-# Extract jags data for ploting
-Sfit <- jagsresults(x = fit , params=c("S.t"),probs=c(0.005,0.025, 0.25, 0.5, 0.75, 0.975,0.995))
-
-gdata <- data.frame(xx = time, mean = Sfit[,"mean"],lwr1=Sfit[,"25%"],lwr2=Sfit[,"2.5%"],lwr3=Sfit[,"0.5%"],upr1=Sfit[,"75%"],
-                     upr2=Sfit[,"97.5%"],upr3=Sfit[,"99.5%"])
-
-
-
-ggplot(gdata ,aes(x=xx)) +
-  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr3, ymax=upr3,y= NULL),alpha=0.8,fill=c("#f0f0f0"),show.legend=FALSE)+
-  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL),alpha=0.7,  fill = c("#bdbdbd"),show.legend=FALSE) +
-  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL),alpha=0.6,fill=c("#636363"),show.legend=FALSE)  +
-  #
-theme_xkcd() +
-  geom_line(survs.data ,mapping=aes(x=time,y=S.t))
-
 
 
 
