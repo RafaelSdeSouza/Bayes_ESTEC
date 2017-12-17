@@ -3,6 +3,8 @@
 require(ggplot2)
 require(xkcd)
 require(R2jags)
+require(mdatools)
+require(ggmcmc)
 source("https://raw.githubusercontent.com/johnbaums/jagstools/master/R/jagsresults.R")
 
 ###  Plot truncated exponential
@@ -29,31 +31,37 @@ ggplot(g,aes(x=x,y=y)) +
 
 # Simulate truncated exponential 
 
-nobs <- 1e3
+nobs <- 100
 covs <- data.frame(id = 1:nobs)
 y <- rexp(nobs) + 10 # Maybe there is a better way of doing this
 
 # Check 
 hist(y)
 
-
+#y <- c(10,12,15)
 
 # Fit a survival model 
 SurvObj <-  Surv(time=y)
 model.par <- survreg(SurvObj~1, dist="exponential")
 mu = exp(model.par$coeff)
-CI <- exp(confint(model.par))
-print(CI)
-
-# Frequentist data
-time <- seq(min(y),max(y),by=1)
-S.t = exp(-(time)/mu)
-survs.data <- data.frame(time=time, 
-                         survs=S.t)
 
 
+# Confidence intervals
+approx_CI <- function(D,sig=0.95){
+Nsigma = sqrt(2)*erfinv(sig)
+N = length(D)
+theta_hat <- mean(D) - 1
+return(list(CI_U = theta_hat+Nsigma/sqrt(N),CI_L=theta_hat-Nsigma/sqrt(N)))
+}
+
+approx_CI(y)
 
 
+
+#CI <- exp(confint(model.par))
+#print(CI)
+
+# Bayesian solution
 
 # Construct data dictionary
 model.data <- list(Y = y,                               # Response variable
@@ -94,6 +102,29 @@ fit <- jags(data = model.data,
                 n.burnin = 1000)
 
 
+S <- ggs(as.mcmc(fit)) %>%
+  filter(.,Parameter == "mu")
+
+ggplot(S,aes(x=value)) +
+         geom_histogram(fill = "#f4901e",bins= 50,aes(y=..count../sum(..count..))) +
+         theme_xkcd() +
+  xlab(expression(mu)) +
+  ylab("Frequency")
+
+
+
+
+jagsresults(x = fit , params=c("mu"),probs=c(0.005,0.025, 0.25, 0.5, 0.75, 0.975,0.995))
+
+
+
+# Frequentist data
+time <- seq(min(y),max(y),by=1)
+S.t = exp(-(time)/mu)
+survs.data <- data.frame(time=time, 
+                         survs=S.t)
+
+# Extract jags data for ploting
 Sfit <- jagsresults(x = fit , params=c("S.t"),probs=c(0.005,0.025, 0.25, 0.5, 0.75, 0.975,0.995))
 
 gdata <- data.frame(xx = time, mean = Sfit[,"mean"],lwr1=Sfit[,"25%"],lwr2=Sfit[,"2.5%"],lwr3=Sfit[,"0.5%"],upr1=Sfit[,"75%"],
@@ -109,7 +140,7 @@ ggplot(gdata ,aes(x=xx)) +
 theme_xkcd() +
   geom_line(survs.data ,mapping=aes(x=time,y=S.t))
 
-hist(as.matrix(as.mcmc(fit)[,"mu"]))
+
 
 
 
