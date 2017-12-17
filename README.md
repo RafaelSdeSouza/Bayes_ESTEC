@@ -2,7 +2,6 @@
 18-20 December 2017,  ESTEC - Noordwijk, The Netherlands   
 by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O. Ishida](https://www.emilleishida.com/)
 
-
 ## Day 1 - The Basics  
 
 -   Bayesian x Frequentists  
