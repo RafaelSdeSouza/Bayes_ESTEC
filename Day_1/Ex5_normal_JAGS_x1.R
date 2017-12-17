@@ -99,11 +99,6 @@ denplot(jagsfit)
 # Plot
 yx <- jagsresults(x=jagsfit, params=c('Yx'))
 
-#S<-ggs(as.mcmc(jagsfit))
-
-
-ggs_pairs(ggs(S))
-
 normdata <- data.frame(x1,y)
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
 
