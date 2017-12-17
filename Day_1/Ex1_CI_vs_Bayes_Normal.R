@@ -9,7 +9,11 @@ require(mdatools)
 
 # Example 1: check the outcomes from estimating the 
 #            mean of 5 Gaussian distributed numbers given 
-#            that we have 10^6 samples of each one of them
+#            that we have 10^6 samples 
+
+N = 5
+Nsamp = 1000
+sigma_x = 2
 
 N = 5                                  # number of random numbers to be averaged
 Nsamp = 1e6                            # number of sample for each random variable
@@ -51,3 +55,14 @@ bayes_CR_mu <- function(D, sigma, frac=0.95){
 type1 <- rnorm(50, mean = 0, sd = sqrt(2500))
 type2 <- rnorm(50, mean = 0, sd = sqrt(1700))
 var.test(type1, type2, alternative = "two.sided")
+
+
+bayes_CR_mu <- function(D, sigma, frac=0.95){
+Nsigma = sqrt(2)*erfinv(frac)
+mu = mean(D)
+sigma_mu = sigma/sqrt(length(D))
+return(c(mu - Nsigma * sigma_mu, mu + Nsigma * sigma_mu))
+}
+
+
+bayes_CR_mu(D,sigma_x)
