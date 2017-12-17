@@ -1,5 +1,6 @@
 # References: Frequentist and Bayesian Statistics
 
+compiled by [Emille E. O. Ishida](www.emilleishida.com) 
 
 ## Statistics in astronomy and cosmology - books
 
