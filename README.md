@@ -30,4 +30,4 @@ by [Rafael S. de Souza](www.rafaelsdesouza.com)  and [Emille E. O. Ishida](www.e
 -    Hierarchical models  
 
 
-## Day 3 - Advanced topics
+## Day 3 - Advanced topics (TBD)
