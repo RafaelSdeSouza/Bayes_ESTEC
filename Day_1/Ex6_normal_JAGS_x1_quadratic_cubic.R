@@ -1,15 +1,15 @@
-# ADA8 – Astronomical Data Analysis Summer School
-# Bayesian tutorial by Rafael S. de Souza - ELTE, Hungary & COIN
-#
-# Partial example from Bayesian Models for Astrophysical Data 
-# by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
+# From: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
+# (c) 2017,  Joseph M. Hilbe, Rafael S. de Souza and Emille E. O. Ishida 
+# 
+# you are kindly asked to include the complete citation if you used this 
+# material in a publication
 #
 # Example of Bayesian normal linear regression in R using JAGS
 # synthetic data
 # 1 response (y) and 1 explanatory variable (x1) with quadratic and cubic terms
 
 require(R2jags)
-source("..//Auxiliar_functions/jagsresults.R")
+source("../auxiliar_functions/jagsresults.R")
 require(ggplot2)
 require(mcmcplots)
 
@@ -18,7 +18,7 @@ nobs= 500                                # number of observations
 x1 <- runif(nobs,-10,10)                 # random uniform variable
   
 xb <- -3 + 6*x1 - 1.75*x1^2 + 0.25*x1^3      # linear predictor
-y <- rnorm(nobs, xb, sd=20)              # create y as adjusted random normal variate
+y <- rnorm(nobs, xb, sd=20)                  # create y as adjusted random normal variate
 
 
 # Prepare data for prediction 
@@ -72,9 +72,6 @@ inits <- function () {
 
 # define parameters
 params <- c("beta", "sigma","Yx")
-
-#params <- c("beta", "sigma")
-
 
 # fit
 jagsfit <- jags(

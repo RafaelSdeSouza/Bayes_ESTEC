@@ -1,11 +1,11 @@
-# ADA8 – Astronomical Data Analysis Summer School
-# Bayesian tutorial by Rafael S. de Souza - ELTE, Hungary & COIN
+# From: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
+# (c) 2017,  Joseph M. Hilbe, Rafael S. de Souza and Emille E. O. Ishida 
+# 
+# you are kindly asked to include the complete citation if you used this 
+# material in a publication
 #
-# Partial example from Bayesian Models for Astrophysical Data 
-# by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
-#
-# Example of Bayesian normal linear regression in R using JAGS 
-# including measurement errors
+# Code 10.3 - Gaussian linear mixed model (in R using JAGS) for modeling the relationship
+#             between type Ia supernovae host galaxy mass and Hubble residuals
 # 
 # real data from Wolf et al., 2016 - http://adsabs.harvard.edu/abs/2016ApJ...821..115W
 # 1 response (y): Hubble residuals 
@@ -15,89 +15,81 @@
 require(R2jags)
 require(ggplot2)
 require(mcmcplots)
-source("..//Auxiliar_functions/jagsresults.R")
+source("../auxiliar_functions/jagsresults.R")
 
-# Read data
-dat<-read.csv("../astro_data/HR.csv",header = T)
+library(R2jags)
 
+# Data
+path_to_data = "https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p2/HR.csv"
+
+dat <- read.csv(path_to_data, header = T)
+
+# Prepare data to JAGS
 nobs = nrow(dat)
 obsx1 <- dat$LogMass
 errx1 <- dat$e_LogMass
-obsy  <- dat$HR
+obsy <- dat$HR
 erry <- dat$e_HR
+type <- as.numeric(dat$Type) # convert class to numeric flag 1 or 2
 
-K   <- 2
-
-# Prepare data for prediction 
-M=500
-xx = seq(from = 0.75*min(obsx1), 
-           to = 1.25*max(obsx1), 
-           length.out = M)
-
-# Prepare data to JAGS
 jags_data <- list(
   obsx1 = obsx1,
   obsy = obsy,
-  errx1=errx1,
-  erry=erry,
+  errx1 = errx1,
+  erry = erry,
+  K = 2,
   N = nobs,
-  M = M,
-  K = K, 
-  xx=xx
-)
+  type = type)
 
-# Normal Model 
-
-NORM_errors<-"model{
+# Fit
+NORM_errors <-" model{
+    tau0 ~ dunif(1e-1,5)
+    mu0 ~ dnorm(0,1)
 
     # Diffuse normal priors for predictors
-    for (i in 1:K) { 
-        beta[i] ~ dnorm(0, 1e-1) 
+    for (j in 1:2){
+        for (i in 1:K) {
+            beta[i,j] ~  dnorm(mu0, tau0)
+        }
     }
 
     # Gamma prior for standard deviation
-    tau~dgamma(1e-3,1e-3)  # precision
-    sigma<-1/sqrt(tau)      # standard deviation
+    tau ~ dgamma(1e-3, 1e-3) # precision
+    sigma <- 1 / sqrt(tau) # standard deviation
 
     # Diffuse normal priors for true x
     for (i in 1:N){
-        x1[i]~dnorm(0,1e-3)
+        x1[i] ~ dnorm(0,1e-3)
     }
 
     # Likelihood function
     for (i in 1:N){
-        obsy[i]~dnorm(y[i],pow(erry[i],-2))
-        y[i]~dnorm(mu[i],tau)
-        obsx1[i]~dnorm(x1[i],pow(errx1[i],-2))
-        mu[i]<-beta[1]+beta[2]*x1[i]
-    }
-
-    # Prediction new data
-    for (j in 1:M){
-        mux[j]<-beta[1]+beta[2]*xx[j]
-        Yx[j]~dnorm(mux[j],tau)
+        obsy[i] ~ dnorm(y[i],pow(erry[i],-2))
+        y[i] ~ dnorm(mu[i],tau)
+        obsx1[i]  ~ dnorm(x1[i],pow(errx1[i],-2))
+        mu[i] <- beta[1,type[i]] + beta[2,type[i]] * x1[i]
     }
 }"
 
-# set initial values
 inits <- function () {
-  list(
-    beta = rnorm(2, 0, 0.01))
+    list(beta = matrix(rnorm(4, 0, 0.01),ncol = 2))
 }
 
-# define parameters
-params0 <- c("beta", "sigma","Yx")
+params0 <- c("beta", "sigma")                        # define parameters
 
-# fit
+# Run MCMC
 NORM <- jags(
-  data       = jags_data,
-  inits      = inits,
-  parameters = params0,
-  model      = textConnection(NORM_errors),
-  n.chains   = 4,
-  n.iter     = 15000,
-  n.thin     = 1,
-  n.burnin   = 10000)
+             data = jags_data,
+             inits = inits,
+             parameters = params0,
+             model = textConnection(NORM_errors),
+             n.chains = 3,
+             n.iter = 100000,
+             n.thin = 1,
+             n.burnin = 60000)
+
+# Output
+print(NORM,justify = "left", digits=3)
 
 # Diagnostics 
 # Try to increase n.iter and n.burnin is to improve mixing
@@ -110,8 +102,6 @@ denplot(NORM,c("beta", "sigma"))
 
 # plot all coefficients
 caterplot(NORM,c("beta", "sigma"))
-
-
 
 # Look at output
 jagsresults(NORM, params=c("beta", "sigma"),signif=2)
