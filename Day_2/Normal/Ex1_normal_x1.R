@@ -1,4 +1,3 @@
-#
 # Bayesian tutorial by Rafael S. de Souza - UNC & COIN
 #
 # Partial example from Bayesian Models for Astrophysical Data 
