@@ -14,8 +14,9 @@ source("../auxiliar_functions/jagsresults.R")
 require(ggplot2)
 
 set.seed(1056)                 # set seed to replicate example
-nobs= 500                      # number of obs in model 
-x1 <- runif(nobs,2,5)          # random uniform variable
+nobs = 100                     # number of obs in model 
+x1 <- rnorm(nobs,3,1)          # random normal variable
+#x1 <- runif(nobs,2,5)         # random uniform variable
 
 xb <- 2 + 3*x1                 # linear predictor
 y <- rnorm(nobs, xb, sd=2)     # create y as adjusted random normal variate
@@ -68,7 +69,7 @@ inits <- function () {
 }
 
 # define parameters
-params <- c("beta", "sigma","Yx")
+params <- c("beta", "sigma","Yx","mux")
 #params <- c("beta", "sigma")
 
 
@@ -82,23 +83,8 @@ jagsfit <- jags(
            n.thin     = 1,
            n.burnin   = 2500)
 
-
-require(mcmcplots)
-
-traplot(jagsfit)
-
-denplot(jagsfit)
-
-#print(jagsfit,justify = "left", digits=2)
-
-
 # Plot
-yx <- jagsresults(x=jagsfit, params=c('Yx'))
-
-#S<-ggs(as.mcmc(jagsfit))
-
-
-ggs_pairs(ggs(S))
+yx <- jagsresults(x=jagsfit, params=c('mux'))
 
 normdata <- data.frame(x1,y)
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
