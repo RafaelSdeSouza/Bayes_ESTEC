@@ -10,12 +10,8 @@ library(fitdistrplus)
 library(ggplot2)
 library(ggthemes)
 library(stats4)
-<<<<<<< HEAD
-require("plot3D")
-=======
 
 
->>>>>>> d340dccf5ddccd0024567f671d704e5f0684aff5
 # Generate data
 set.seed(1056)                          # set seed to replicate example
 nobs = 200                              # number of obs in model
@@ -49,23 +45,13 @@ likelihood <- function(param){
   return(sum(log(LL)))
 }
 
-# 3D likelihood
-grid.lines = 26                # predict values on regular xy grid
-x1.pred <- seq(1,10, length.out = grid.lines)
-x2.pred <- seq(0.5, 10, length.out = grid.lines)
-x1x2 <- expand.grid( x1 = x1.pred, x2 = x2.pred)
+Mc <- list()
+for(i in 1:100){
+  Mc <- append(Mc,likelihood(c(chain2[i,1],chain2[i,2])))
+}
+as.numeric(Mc)
+plot(as.numeric(Mc),type="l")
 
-y.pred <- matrix(apply(x1x2,1,likelihood), 
-                 nrow = grid.lines, ncol = grid.lines)
-
-# scatter plot with regression plane
-contour3D(z = y.pred,                   
-          cex = 0.5, cex.lab=1.5, colvar = z, 
-          theta = 130, phi = 25, ticktype = "detailed",
-          col="red2",bty = "b2",t="l",
-          xlab="x1",
-          ylab="x2",
-          zlab="y")
 
 slopevalues <- function(y){return(likelihood(c(y,1.5)))}
 plot(seq(0,10,length.out = 100),sapply(seq(0,10,length.out = 100),slopevalues),type="l")

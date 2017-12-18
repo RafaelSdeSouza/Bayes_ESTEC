@@ -35,7 +35,9 @@ MS_data <- list(
   obsy = obsy,
   errx = errx,
   erry = erry,
-  N = N
+  N = N,
+  M = M,
+  xx  = xx
 )
 
 
@@ -62,7 +64,7 @@ mu[i] <- alpha + beta*x[i] # linear predictor
 
 # Prediction for new data
     for (j in 1:M){
-    etax[j]<-beta[1]+beta[2]*xx[j]
+    etax[j]<-alpha+beta*xx[j]
     mux[j]  <- etax[j]
     Yx[j]~dnorm(mux[j],tau)
     }
@@ -78,7 +80,7 @@ inits <- function () {
 }
 
 # Identify parameters
-params0 <- c("alpha","beta", "epsilon")
+params0 <- c("alpha","beta", "epsilon","mux")
 
 # Fit
 NORM_fit <- jags(data = MS_data,
@@ -91,9 +93,21 @@ NORM_fit <- jags(data = MS_data,
                  n.burnin = 30000
 )
 # Output
-print(NORM_fit,justify = "left", digits=2)
+#print(NORM_fit,justify = "left", digits=2)
 
 
+# Plot
+yx <- jagsresults(x = NORM_fit, params=c('mux'))
 
+normdata <- data.frame(obsx,obsy)
+gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
+
+
+ggplot(normdata,aes(x=obsx,y=obsy))+ geom_point(colour="#de2d26",size=1,alpha=0.35)+
+  geom_point(size=1.5,colour="red3") +
+  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL), alpha=0.95, fill=c("orange3"),show.legend=FALSE) +
+  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.35, fill = c("orange"),show.legend=FALSE) +
+  geom_line(data=gdata,aes(x=xx,y=mean),colour="gray25",linetype="dashed",size=1,show.legend=FALSE)+
+  theme_bw()
 
 
