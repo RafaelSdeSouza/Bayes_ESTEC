@@ -13,7 +13,7 @@
 # require(xkcd)
 #########################################
 
-library(extrafont)
+#library(extrafont)
 require(R2jags)
 require(mdatools)
 require(ggmcmc)
@@ -39,7 +39,7 @@ g <- data.frame(x=x,y=p_exp(x,10))
 ggplot(g,aes(x=x,y=y)) +
   geom_line() +
   geom_area(fill="#f4901e") +
-  theme_xkcd() +
+#  theme_xkcd() +
   xlab("Failiture time") +
   ylab("px")
 

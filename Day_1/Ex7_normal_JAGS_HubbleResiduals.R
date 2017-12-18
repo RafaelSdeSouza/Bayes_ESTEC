@@ -129,19 +129,4 @@ ggplot(nmod,aes(x=obsx1,y=obsy))+
   ylab(expression(mu[SN]-mu[z]))+
   xlab(expression(log~M/M['\u0298']))+
   coord_cartesian(xlim=c(8,13),ylim=c(-1,1))
-"
-# plot  
-ggplot(nmod,aes(x=obsx1,y=obsy))+
-  geom_errorbar(aes(ymin=obsy-erry,ymax=obsy+erry),alpha=0.5,width=0.025,colour="gray70")+
-  geom_errorbarh(aes(xmin=obsx1-errx1,
-                     xmax=obsx1+errx1),alpha=0.5,height=0.025,colour="gray70")+
-  geom_point(size=2,color="blue")+
-  geom_ribbon(data=gdata,aes(x=xx,y=mean,ymin=lwr2, ymax=upr2), alpha=0.15, fill=c("orange")) +
-  geom_ribbon(data=gdata,aes(x=xx,y=mean,ymin=lwr1, ymax=upr1), alpha=0.50, fill=c("orange3")) +
-  geom_line(data=gdata,aes(x=xx,y=mean),colour="red",linetype="dashed",size=1.5)+
-  theme_bw()+
-  ylab(expression(mu[SN]-mu[z]))+
-  xlab(expression(log~M/M['\u0298']))+
-  coord_cartesian(xlim=c(8,13),ylim=c(-1,1))
 
-"
