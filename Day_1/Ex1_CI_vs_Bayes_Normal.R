@@ -7,17 +7,16 @@
 # http://jakevdp.github.io/blog/2014/06/12/frequentism-and-bayesianism-3-confidence-credibility/
 
 require(mdatools)
+source("/Users/Rafael/Documents/GitHub/Bayes_ESTEC/auxiliar_functions/jagsresults.R")
+
 
 # Example 1: check the outcomes from estimating the 
 #            mean of 5 Gaussian distributed numbers given 
 #            that we have 10^6 samples 
 
-N = 5
-Nsamp = 1000
-sigma_x = 2
 
 N = 5                                  # number of random numbers to be averaged
-Nsamp = 1e6                            # number of sample for each random variable
+Nsamp = 1e5                          # number of sample for each random variable
 sigma_x = 2                            # variance of all numbers
 
 
