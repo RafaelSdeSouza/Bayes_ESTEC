@@ -9,6 +9,7 @@
 library(fitdistrplus)
 library(ggplot2)
 library(ggthemes)
+library(stats4)
 
 
 # Generate data
@@ -45,7 +46,7 @@ LL <- function(mu,sd){
   -likelihood(c(mu,sd))
 }
 
-fit <- mle(LL, start = list( mu = 1, sd = 1), method = "L-BFGS-B", lower = c(-Inf, 0))
+fit <- mle(LL, start = list( mu = 3, sd = 1), method = "L-BFGS-B", lower = c(-Inf, 0))
 summary(fit)
 
 # Prior distribution

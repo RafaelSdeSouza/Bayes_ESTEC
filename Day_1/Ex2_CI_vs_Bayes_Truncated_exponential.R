@@ -17,6 +17,7 @@ library(extrafont)
 require(R2jags)
 require(mdatools)
 require(ggmcmc)
+require(survival)
 source("https://raw.githubusercontent.com/johnbaums/jagstools/master/R/jagsresults.R")
 
 ######################################################
