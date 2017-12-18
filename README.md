@@ -12,7 +12,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
     [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/references.md)  
 
 -   Monte Carlo Markov Chain  
-    [Slides](https://docs.google.com/presentation/d/1sXRPlQdwNc8IXRoouGJg_2LIzB-kMMLzV7FCJhFZBBM/edit?usp=sharing)
+    [Slides](https://docs.google.com/presentation/d/1sXRPlQdwNc8IXRoouGJg_2LIzB-kMMLzV7FCJhFZBBM/edit?usp=sharing)  
     [Example 3](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex3_my_MCMC_normal_hist.R) - *My first MCMC - Normal distribution*  
     [Example 3b](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex3b_my_MCMC_normal_hist.py) - *My first MCMC - Normal distribution in Python*  
     [Example 4](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex4_my_MCMC_lm.R) - *My first MCMC - linear regression*  
