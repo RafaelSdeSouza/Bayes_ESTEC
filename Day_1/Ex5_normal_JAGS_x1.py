@@ -1,4 +1,4 @@
-# From: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
+# Adapted from: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
 # (c) 2017,  Joseph M. Hilbe, Rafael S. de Souza and Emille E. O. Ishida 
 # 
 # you are kindly asked to include the complete citation if you used this 
@@ -27,7 +27,7 @@ y = np.random.normal(loc=xb, scale=1.0, size=nobs)    # create y as adjusted
 
 # Fit
 toy_data = {}                  # build data dictionary
-toy_data['N'] = nobs        # sample size
+toy_data['N'] = nobs           # sample size
 toy_data['X'] = x1             # explanatory variable
 toy_data['Y'] = y              # response variable
 toy_data['M'] = 5000
@@ -73,3 +73,4 @@ def summary(samples, varname, p=95):
 
 for varname in ['beta', 'sigma', 'Yx', 'mux']:
     summary(samples, varname)
+
