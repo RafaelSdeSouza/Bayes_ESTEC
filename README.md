@@ -6,7 +6,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -   Bayesian x Frequentists  
 
-    [Slides](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Aula 1_Bayes_vs_Frequentist.pdf)  
+    [Slides](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Aula1_Bayes_vs_Frequentist.pdf)  
     [Example 1](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex1_CI_vs_Bayes_Normal.R) - *Confidence Intervals vs Credible Intervals - Normal distribution*   
     [Example 2](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex2_CI_vs_Bayes_Truncated_exponential.R) - *Confidence Intervals vs Credible Intervals - Truncated exponential*  
     [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/references.md)  
