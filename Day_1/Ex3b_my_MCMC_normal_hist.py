@@ -16,12 +16,9 @@ http://twiecki.github.io/blog/2015/11/10/mcmc-sampling/
 
 
 import numpy as np
-import scipy as sp
-import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
-from scipy.stats import norm, bernoulli, uniform, multivariate_normal
+from scipy.stats import norm, bernoulli, uniform
 
 # fix random seed
 np.random.seed(123)
