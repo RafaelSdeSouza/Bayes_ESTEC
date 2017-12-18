@@ -20,7 +20,7 @@ source("../auxiliar_functions/jagsresults.R")
 library(R2jags)
 
 # Data
-path_to_data = "https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p2/HR.csv"
+path_to_data = "data/HR.csv"
 
 dat <- read.csv(path_to_data, header = T)
 
@@ -106,9 +106,13 @@ caterplot(NORM,c("beta", "sigma"))
 # Look at output
 jagsresults(NORM, params=c("beta", "sigma"),signif=2)
 
+M=500
+xx = seq(from = 0.75*min(obsx1), 
+         to = 1.25*max(obsx1), 
+         length.out = M)
 
 # Plot fitted values
-yx <- jagsresults(NORM, params=c('Yx'))
+yx <- jagsresults(NORM, params=c('beta', 'sigma'))
 gdata <- data.frame(x =xx, mean = yx[,"50%"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
 nmod <- data.frame(obsx1,obsy)
 
@@ -125,5 +129,19 @@ ggplot(nmod,aes(x=obsx1,y=obsy))+
   ylab(expression(mu[SN]-mu[z]))+
   xlab(expression(log~M/M['\u0298']))+
   coord_cartesian(xlim=c(8,13),ylim=c(-1,1))
+"
+# plot  
+ggplot(nmod,aes(x=obsx1,y=obsy))+
+  geom_errorbar(aes(ymin=obsy-erry,ymax=obsy+erry),alpha=0.5,width=0.025,colour="gray70")+
+  geom_errorbarh(aes(xmin=obsx1-errx1,
+                     xmax=obsx1+errx1),alpha=0.5,height=0.025,colour="gray70")+
+  geom_point(size=2,color="blue")+
+  geom_ribbon(data=gdata,aes(x=xx,y=mean,ymin=lwr2, ymax=upr2), alpha=0.15, fill=c("orange")) +
+  geom_ribbon(data=gdata,aes(x=xx,y=mean,ymin=lwr1, ymax=upr1), alpha=0.50, fill=c("orange3")) +
+  geom_line(data=gdata,aes(x=xx,y=mean),colour="red",linetype="dashed",size=1.5)+
+  theme_bw()+
+  ylab(expression(mu[SN]-mu[z]))+
+  xlab(expression(log~M/M['\u0298']))+
+  coord_cartesian(xlim=c(8,13),ylim=c(-1,1))
 
-
+"

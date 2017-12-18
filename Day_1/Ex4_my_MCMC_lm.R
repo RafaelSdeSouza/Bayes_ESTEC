@@ -25,7 +25,6 @@ plot(x1,y,pch=19,col="red")                          # plot scatter
 lines(x1,ypred,col='grey40',lwd=2)                   # plot regression line
 segments(x1,fitted(mod),x1,y,lwd=1,col="gray70")     # add the residuals
 
-
 # MCMC solution
 
 likelihood <- function(param){

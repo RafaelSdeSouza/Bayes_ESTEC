@@ -10,7 +10,12 @@ library(fitdistrplus)
 library(ggplot2)
 library(ggthemes)
 library(stats4)
+<<<<<<< HEAD
 require("plot3D")
+=======
+
+
+>>>>>>> d340dccf5ddccd0024567f671d704e5f0684aff5
 # Generate data
 set.seed(1056)                          # set seed to replicate example
 nobs = 200                              # number of obs in model
