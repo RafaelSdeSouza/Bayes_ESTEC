@@ -20,7 +20,7 @@ source("../auxiliar_functions/jagsresults.R")
 library(R2jags)
 
 # Data
-path_to_data = "https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p2/HR.csv"
+path_to_data = "data/HR.csv"
 
 dat <- read.csv(path_to_data, header = T)
 
