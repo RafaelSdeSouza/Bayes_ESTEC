@@ -43,8 +43,9 @@ NORM <-" model{
     for (i in 1:K) { beta[i] ~ dnorm(0, 0.0001) }
     
    # Uniform prior for standard deviation
-    sigma ~ dunif(0, 100)       # standard deviation
-    tau <- pow(sigma, -2)       # precision
+#    sigma ~ dunif(0, 100)       # standard deviation
+     sigma ~ dgamma(0.01,0.01)
+     tau <- pow(sigma, -2)       # precision
    
    
     # Likelihood function 
@@ -78,13 +79,22 @@ jagsfit <- jags(
            inits      = inits,
            parameters = params,
            model      = textConnection(NORM),
-           n.chains   = 3,
+           n.chains   = 5,
            n.iter     = 5000,
            n.thin     = 1,
-           n.burnin   = 2500)
+           n.burnin   = 1000)
+
+
+
+
+
+jagsresults(x = jagsfit, params=c("beta", "sigma"))
+
+
 
 # Plot
 yx <- jagsresults(x = jagsfit, params=c('mux'))
+
 
 normdata <- data.frame(x1,y)
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
@@ -96,4 +106,5 @@ ggplot(normdata,aes(x=x1,y=y))+ geom_point(colour="#de2d26",size=1,alpha=0.35)+
   geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.35, fill = c("orange"),show.legend=FALSE) +
   geom_line(data=gdata,aes(x=xx,y=mean),colour="gray25",linetype="dashed",size=1,show.legend=FALSE)+
   theme_bw()
- 
+
+
