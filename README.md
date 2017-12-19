@@ -44,6 +44,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -    Bernoulli model  
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Bernoulli/Bern_fit.R)  
+     [Fraction of red spirals in R using JAGS](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Bernoulli/Logit_red_spirals.R)  
 
 -    Poisson model
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/poisson_fit.R)  
