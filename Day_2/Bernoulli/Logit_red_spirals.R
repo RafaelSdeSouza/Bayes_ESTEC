@@ -19,10 +19,6 @@ N <- nrow(Red)
 x <- Red$fracdeV
 y <- Red$type
 
-gr <- data.frame(frac=x,type=factor(y))
-ggplot(data=gr,aes(x=type,y=frac)) +
-  geom_boxplot() +
-  xlab("red galaxy")
 
 
 
