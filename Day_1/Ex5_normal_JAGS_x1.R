@@ -108,18 +108,3 @@ ggplot(normdata,aes(x=x1,y=y))+ geom_point(colour="#de2d26",size=1,alpha=0.35)+
   theme_bw()
 
 
-
-require(mcmcplots)
-
-traplot(jagsfit)
-
-
-require(ggmcmc)
-
-
-print(jagsfit)
-
-require(mcmcplots)
-ggs_pairs(ggs(as.mcmc(jagsfit)),family="beta") +
-  theme_fivethirtyeight()
-
