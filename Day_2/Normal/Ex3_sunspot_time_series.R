@@ -10,9 +10,9 @@
 
 require(R2jags)
 require(jagstools)
-source("..//Auxiliar_functions/jagsresults.R")
+source("../../auxiliar_functions/jagsresults.R")
 # Data
-sunspot <- read.csv("https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p10/sunspot.csv",header = T, sep=",")
+sunspot <- read.csv("../data/sunspot.csv",header = T, sep=",")
 
 # Prepare data to JAGS
 y <- round(sunspot[,2])

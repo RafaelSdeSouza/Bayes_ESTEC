@@ -32,6 +32,9 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
      [Examples in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_2/Normal/python)  
      [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/references_continuos.md)  
 
+-    Time series  
+     [Example in R]()
+
 -    Discrete distributions  
 -    Mixed models  
 -    Hierarchical models  
