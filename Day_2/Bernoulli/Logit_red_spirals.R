@@ -58,7 +58,12 @@ LOGIT <-"model{
         logit(p[i]) <- eta[i]
         eta[i] <- inprod(beta[], X[i,])
     }
-}"
+    # Prediction for new data
+    for (j in 1:M){
+        etax[j]<-inprod(beta[], XX[j,])
+        logit(px[j]) <- etax[j]
+        Yx[j]~dbern(px[j])
+}}"
 
 # Define initial values
 inits <- function () {
