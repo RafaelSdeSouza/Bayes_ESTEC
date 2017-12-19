@@ -9,9 +9,9 @@
 
 require(R2jags)
 require(ggplot2)
-source("../auxiliar_functions/jagsresults.R")
+source("../../auxiliar_functions/jagsresults.R")
 # Data
-path_to_data = "data/M_sigma.csv"
+path_to_data = "../data/M_sigma.csv"
 
 # Read data
 MS <-read.csv(path_to_data,header = T)

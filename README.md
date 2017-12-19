@@ -28,6 +28,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 ## Day 2 - Generalized Linear Models  
 
 -    Continuous distributions  
+     [Examples in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_2/Normal/python)  
      [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/references_continuos.md)  
 -    Discrete distributions  
 -    Mixed models  
