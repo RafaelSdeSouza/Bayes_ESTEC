@@ -20,6 +20,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -   Just Another Gibbs Sampler  
     [Example 5](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.R) - *Normal model using JAGS*  
+    [Example 5b](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.py) - *Normal model using JAGS in Python*  
     [Example 6](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex6_normal_JAGS_x1_quadratic_cubic.R) - *Normal model using JAGS - higher order*  
     [Example 7](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex7_normal_JAGS_HubbleResiduals.R) - *Normal model using JAGS - Hubble Residuals*  
     [Example 8](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex8_JAGS_Black_body.R) - *Lognormal model using JAGS - Black body*  
