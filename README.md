@@ -33,9 +33,21 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
      [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/references_continuos.md)  
 
 -    Time series  
-     [Example in R]()
+     [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/Ex3_sunspot_time_series.R)  
+     [Example in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex3_sunspot_time_series.py)  
 
--    Discrete distributions  
+-    Gamma model  
+     [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Gamma/Gamma_fit.R)  
+
+-    Lognormal model  
+     [Example in R - black body](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Lognormal/Ex1_JAGS_Black_body.R)  
+
+-    Bernoulli model  
+     [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Bernoulli/Bern_fit.R)  
+
+-    Poisson model
+     [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/poisson_fit.R)  
+
 -    Mixed models  
 -    Hierarchical models  
 
