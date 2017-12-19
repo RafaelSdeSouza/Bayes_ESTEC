@@ -1,8 +1,7 @@
-# ADA8 – Astronomical Data Analysis Summer School
-# Bayesian tutorial by Rafael S. de Souza - ELTE, Hungary & COIN
+# ESTEC Bayesian tutorial by Rafael S. de Souza - UNC & COIN
 #
 # Partial example from Bayesian Models for Astrophysical Data 
-# by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
+# by Hilbe, de Souza & Ishida, 2017, Cambridge Univ. Press
 #
 # Example of frequentist linear regression in R
 # synthetic data

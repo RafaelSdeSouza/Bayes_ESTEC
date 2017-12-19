@@ -1,10 +1,7 @@
 # Adapted from: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
 # (c) 2017,  Joseph M. Hilbe, Rafael S. de Souza and Emille E. O. Ishida 
 # 
-# you are kindly asked to include the complete citation if you used this 
-# material in a publication
-
-# Code 4.3 - Normal linear model in Python using STAN
+# Normal linear model in Python using JAGS
 # 1 response (y) and 1 explanatory variable (x1)
 
 import numpy as np

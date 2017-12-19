@@ -1,15 +1,14 @@
-# ADA8 – Astronomical Data Analysis Summer School
-# Bayesian tutorial by Rafael S. de Souza - ELTE, Hungary & COIN
+# ESTEC Bayesian tutorial by Rafael S. de Souza - UNC & COIN
 #
 # Partial example from Bayesian Models for Astrophysical Data 
-# by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
+# by Hilbe, de Souza & Ishida, 2017, Cambridge Univ. Press
 #
 # Example of Bayesian normal linear regression in R using JAGS
 # synthetic data
 # 1 response (y) and 1 explanatory variable (x1) with quadratic and cubic terms
 
 require(R2jags)
-source("..//Auxiliar_functions/jagsresults.R")
+source("../../auxiliar_functions/jagsresults.R")
 require(ggplot2)
 require(mcmcplots)
 
