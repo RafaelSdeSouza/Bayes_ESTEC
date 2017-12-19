@@ -19,7 +19,7 @@ c <- 2.997e10 * 1e4                 # velocity of light (cm/s)
 k <- 8.6173303e-5                   # Boltzman constant (eV/K)
 Temp <-  5777                       # black body temperature (K) 
 
-sd <- 0.3                          # lognormal standard deviation
+sd <- 0.5                          # lognormal standard deviation
 
 mu <- (8*pi*h*c/lambda^5)*1/(exp(h*c/(k*Temp*lambda)) - 1)      #  Planck law
 muL <- log(mu) - 0.5*log(1 + (sd/mu)^2)                         #  lognormal mean
