@@ -1,4 +1,4 @@
-# Chapter 1 - Gaussian Models#
+# Chapter 1 - Normal Models
 
 
 * Frequentist Normal linear regression in Python  
