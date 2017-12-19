@@ -18,5 +18,5 @@
         [1 explanatory variable](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex5b_normal_JAGS_x1.py)    
         [1 explanatory variable with quadratic and cubic term](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex6c_normal_Stan_x1_quadratic_cubic.py)  
         [Errors - synthetic data](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex1_Errors_in_measurements.py)  
-        [Errors - central black hole mass and bulge velocity](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex2_M_sigma.py)
+        [Errors - central black hole mass and bulge velocity](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex2_M_sigma.py)  
         [Time series - sunspots](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex3_sunspot_time_series.py)
