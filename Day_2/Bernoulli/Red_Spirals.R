@@ -1,25 +1,29 @@
-# From: Bayesian Models for Astrophysical Data, Cambridge Univ. Press
-# (c) 2017,  Joseph M. Hilbe, Rafael S. de Souza and Emille E. O. Ishida 
-# 
-# you are kindly asked to include the complete citation if you used this 
-# material in a publication
-
-# Code 10.12 - Bernoulli model in R using JAGS, for accessing the relationship between bulge
-#              size and the fraction of red spirals
-
+# JAGS LOGIT  Model for Red Spirals
+############### Required packages
 require(R2jags)
+require(jagstools)
+library(extrafont)
 require(ggplot2)
-source('../../auxiliar_functions/jagsresults.R')
+require(ggthemes)
+############### Simulation 
 
-# Data
-path_to_data = 'Red_spirals.csv'
 
-Red <- read.csv(path_to_data)
 
+path_to_data = 'https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p6/Red_spirals.csv'
+
+# Read data
+Red <- read.csv(path_to_data,header=T)
 # Prepare data to JAGS
 N <- nrow(Red)
-x <- Red$redshift
+x <- Red$fracdeV
 y <- Red$type
+
+gr <- data.frame(frac=x,type=factor(y))
+ggplot(data=gr,aes(x=type,y=frac)) +
+  geom_boxplot() +
+  xlab("red galaxy")
+
+
 
 # Prepare data for prediction 
 M=500
@@ -41,7 +45,7 @@ logit_data <- list(Y  = y, # Response variable
                    M = M
 )
 ############### JAGS code
-LOGIT <-"model{
+LOGIT<-"model{
 
 # Diffuse normal priors for predictors
 for(i in 1:K){
@@ -62,8 +66,8 @@ logit(px[j]) <- etax[j]
 Yx[j]~dbern(px[j])
 }
 
-}"
-
+}
+"
 #A function to generate initial values for mcmc
 inits  <- function () {
   list(
@@ -72,25 +76,25 @@ inits  <- function () {
 params <- c("beta","px")
 
 # Run mcmc
-LOGIT_fit <- jags(data     = logit_data,
-                 inits      = inits,
-                 parameters = params,
-                 model      = textConnection(LOGIT),
-                 n.thin     = 1,
-                 n.chains   = 3,
-                 n.burnin   = 3000,
-                 n.iter     = 6000)
+LOGIT_fit<- jags(data     = logit_data,
+               inits      = inits,
+               parameters = params,
+               model      = textConnection(LOGIT),
+               n.thin     = 1,
+               n.chains   = 3,
+               n.burnin   = 3000,
+               n.iter     = 6000)
 
 ############### Output on screen
-#print(LOGIT_fit,intervals=c(0.025, 0.975),justify = "left", digits=2)
+print(LOGIT_fit,intervals=c(0.025, 0.975),justify = "left", digits=2)
 
-jagsresults(x=LOGIT_fit, params=c("beta"))
+
 
 # Plot
 yx <- jagsresults(x=LOGIT_fit, params=c('px'))
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
 # Bin data for visualization
-binx<-0.01
+binx<-0.05
 t.breaks <-cut(x, seq(0,0.5, by=binx))
 means <-tapply(y, t.breaks, mean)
 semean <-function(x) sd(x)/sqrt(length(x))
@@ -112,7 +116,7 @@ ggplot(logitmod,aes(x=x,y=y))+
   geom_errorbar(data=gbin,aes(x=x,y=y,ymin=y-2*means.se,ymax=y+2*means.se),alpha=0.85,
                 colour="#de2d26",width=0.005)+
   theme_bw() +
-  #  ylab(expression(N[red]/N[Spirals]))+
+#  ylab(expression(N[red]/N[Spirals]))+
   ylab(expression(p[red]))+
   xlab(expression(FracDev[r]))+
   theme(legend.background = element_rect(fill="white"),
@@ -121,7 +125,10 @@ ggplot(logitmod,aes(x=x,y=y))+
         legend.position="top",
         axis.title.y = element_text(vjust = 0.1,margin=margin(0,10,0,0)),
         axis.title.x = element_text(vjust = -0.25),
-        text = element_text(size = 25,family="serif"))
+        text = element_text(size = 25,family="serif"))+
+  coord_cartesian(ylim=c(0,0.4),xlim=c(0,0.5))
 
-#+coord_cartesian(ylim=c(0,0.4),xlim=c(0,0.5))
+quartz.save(type = 'pdf', file = 'LOGIT_red_spirals.pdf',width = 10, height = 9)
+
+
 
