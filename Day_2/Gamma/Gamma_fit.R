@@ -1,6 +1,10 @@
+# ESTEC - 18-20 December 2017
+# (c) 2017, Rafael S. de Souza 
+#
 # synthetic data
 # 1 response (y) and 1 explanatory variable (x1) with 1 quadratic term
 
+require(ggplot2)
 
 set.seed(1056)                    # set seed to replicate example
 nobs = 50                         # number of obs in model 
@@ -27,5 +31,4 @@ ggplot(d, aes(x = x, y = y)) +
   geom_segment(aes(xend = x, yend = predicted)) +
   geom_point(color="purple",size=2) +
   geom_line(aes(x=x,y=predicted))+
-  theme_xkcd() +
   theme(panel.background = element_rect(color = "black", fill = "gray85") )

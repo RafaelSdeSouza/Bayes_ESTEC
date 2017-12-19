@@ -1,7 +1,7 @@
 # Bayesian tutorial by Rafael S. de Souza - UNC, USA & COIN
 #
 # Partial example from Bayesian Models for Astrophysical Data 
-# by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
+# by Hilbe, de Souza & Ishida, 2017, Cambridge Univ. Press
 #
 # Example of frequentist Bernoulli regression in R
 # synthetic data
@@ -52,7 +52,6 @@ ggplot(logitmod,aes(x=x1,y=by))+
   geom_line(aes(y=pred_logit),data=data_logit,size=0.6)+
   geom_point(aes(x=x,y=y),size=2.5,data=gbin,colour="purple")+
   geom_segment(data=gbin,mapping=aes(x= x, y = as.numeric(y), xend = x, yend = predicted)) +
-  theme_xkcd()+
   ylab("y")+
   xlab("x")+coord_cartesian(ylim=c(-0.2,1.025)) +
   theme(panel.background = element_rect(color = "black", fill = "gray85") )
