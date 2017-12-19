@@ -34,10 +34,9 @@ toy_data = {}                                                 # build data dicti
 toy_data['N'] = nobs                                          # sample size
 toy_data['X'] = sm.add_constant(np.transpose(x1))             # explanatory variable
 toy_data['Y'] = y                                             # response variable
-toy_data['M'] = 500                                           # number of data for prediction
-toy_data['K'] = 4                                             # number of parameters
-
 toy_data['xx'] = np.arange(min(x1), max(x1),((max(x1)-min(x1))/500))      # grid for prediction
+toy_data['M'] = toy_data['xx'].shape[0]                                   # number of data for prediction
+toy_data['K'] = 4                                             # number of parameters
 
 
 # Stan code
@@ -46,73 +45,48 @@ data {
     int<lower=0> N;           
     int<lower=0> M;     
     int<lower=0> K;                 
-    matrix[nobs, K] X;                       
-    vector[nobs] Y;                       
+    matrix[N, 2] X;                       
+    vector[N] Y;                       
     vector[M] xx;
 }
 parameters {
-    vector beta[K];                                              
+    vector[K] beta;                                              
     real<lower=0> sigma;               
 }
 model {
-    vector[nobs] mu;
+    vector[N] mu;
+    vector[N] eta;
 
-    mu = beta0 + beta1 * x;
+    for (i in 1:N){
+        eta[i] = beta[1] + beta[2] * X[i,2] + beta[3] * X[i,2]^2 + beta[4] * X[i,2] ^3;
+        mu[i] = eta[i];
+    }
 
-    y ~ normal(mu, sigma);             # Likelihood function
+    Y ~ normal(mu, sigma);             # Likelihood function
 }
 generated quantities{
     vector[M] ypred;
 
     for (i in 1:M){
-        ypred[i] = beta0 + beta1 * xx[i];
-    }
-}
-
-
-model{
-    # Diffuse normal priors for predictors
-    for (i in 1:K) { beta[i] ~ dnorm(0, 0.0001) }
-
-    # Uniform prior for standard deviation
-    tau <- pow(sigma, -2)       # precision
-    sigma ~ dunif(0, 100)       # standard deviation
-
-    # Likelihood function 
-    for (i in 1:N){
-        Y[i] ~ dnorm(mu[i],tau)
-        mu[i]  <- eta[i]
-        eta[i] <- beta[1] + beta[2] * X[i,2] + beta[3] * X[i,2]^2 + beta[4] * X[i,2]^3
-    }
-
-    # Prediction for new data
-    for (j in 1:M){
-        etax[j] <- beta[1] + beta[2] * xx[j] + beta[3] * xx[j]^2 + beta[4] * xx[j]^3
-        mux[j]  <- etax[j]
-        Yx[j] ~ dnorm(mux[j],tau)
+        ypred[i] = beta[1] + beta[2] * xx[i] + beta[3] * xx[i]^2 + beta[4] * xx[i]^3;
     }
 }"""
 
-model = pyjags.Model(NORM, data=toy_data, chains=3)
-samples = model.sample(5000, vars=['beta', 'sigma', 'Yx', 'mux'])
+fit = pystan.stan(model_code=stan_code, data=toy_data, iter=5000, chains=3, verbose=False, n_jobs=3)
+
+# Output
+nlines = 9                    # number of lines in screen output
+
+output = str(fit).split('\n')
+for item in output[:nlines]:
+    print(item)   
 
 
-def summary(samples, varname, p=95):
-    if varname == 'beta':
-        for k in range(4):
-            values = samples[varname][k]
-            ci = np.percentile(values, [100-p, p])
-            print('{:<6} mean = {:>5.1f}, {}% credible interval [{:>4.1f} {:>4.1f}]'.format(
-                   varname[k], np.mean(values), p, *ci))
 
-    else:
-        values = samples[varname]
-        ci = np.percentile(values, [100-p, p])
-        print('{:<6} mean = {:>5.1f}, {}% credible interval [{:>4.1f} {:>4.1f}]'.format(
-               varname, np.mean(values), p, *ci))
-
-for varname in ['beta', 'sigma']:
-    summary(samples, varname)
+# Plot posteriors
+fit.plot(['beta', 'sigma'])
+plt.tight_layout()
+plt.show()
 
 
 # get Gaussian fit
@@ -120,10 +94,13 @@ mean = []
 std = []
 beta_axis = []
 for j in range(4):
-    meanx, stdx = norm.fit(samples['beta'][j][:,0])
+    meanx, stdx = norm.fit(fit.extract(['beta'])['beta'][:,j])
     mean.append(meanx)
     std.append(stdx)
-    beta_axis.append(np.arange(min(samples['beta'][j][:,0]), max(samples['beta'][j][:,0]), 0.001))
+    beta_axis.append(np.arange(min(fit.extract(['beta'])['beta'][:,j]), max(fit.extract(['beta'])['beta'][:,j]), 0.001))
+
+
+ypred = norm.fit(fit.extract(['ypred'])['ypred'][5000:])
 
 
 # plot posteriors
@@ -182,3 +159,26 @@ plt.tight_layout()
 plt.show()
 
 
+# plot chains
+plt.figure(figsize=(8, 12))
+
+for k in range(4):
+    plt.subplot(4,2, (2*k+1))
+    plt.plot(beta_axis[k], norm.pdf(beta_axis[k], loc=mean[k], scale=std[k]), color='blue', lw=2)
+    plt.xlabel('beta[' + str(k) + ']')
+
+    plt.subplot(4,2, 2*k + 2)
+    plt.plot(range(2500), fit.extract(['beta'])['beta'][:,k][5000:])
+    plt.ylabel('beta[' + str(k) + ']')
+    plt.xlabel('samples')
+
+plt.tight_layout()
+plt.show()
+
+# plot prediction
+plt.figure()
+plt.scatter(x1, y, color='blue')
+plt.plot(toy_data['xx'], fit.extract(['ypred'])['ypred'][-1], ls='--', color='black', lw=2)
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()

@@ -81,8 +81,6 @@ for item in output[:nlines]:
 
 
 # Plot posteriors
-import pylab as plt
-
 fit.plot(['beta0', 'beta1', 'sigma'])
 plt.tight_layout()
 plt.show()
