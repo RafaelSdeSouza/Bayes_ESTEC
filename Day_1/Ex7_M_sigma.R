@@ -16,10 +16,10 @@ MS < -read.csv(path_to_data,header = T)
 
 # Identify variables
 N <- nrow(MS) # number of data points
-obsx <- MS$obsx # log black hole mass
-errx <- MS$errx # error on log black hole mass
-obsy <- MS$obsy # log velocity dispersion
-erry <- MS$erry # error on log velocity dispersion
+obsx <- MS$obsx # log observed velocity dispersion
+errx <- MS$errx # error on log velocity dispersion 
+obsy <- MS$obsy # log observed black hole mass  
+erry <- MS$erry # error on log black hole mass 
 
 # Prepare data for prediction 
 M=500
@@ -99,15 +99,21 @@ NORM_fit <- jags(data = MS_data,
 # Plot
 yx <- jagsresults(x = NORM_fit, params=c('mux'))
 
-normdata <- data.frame(obsx,obsy)
+normdata <- data.frame(obsx,obsy,errx,erry)
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
 
 
 ggplot(normdata,aes(x=obsx,y=obsy))+ geom_point(colour="#de2d26",size=1,alpha=0.35)+
   geom_point(size=1.5,colour="red3") +
-  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL), alpha=0.95, fill=c("orange3"),show.legend=FALSE) +
-  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.35, fill = c("orange"),show.legend=FALSE) +
+  geom_errorbar(show.legend=FALSE,aes(x=obsx,y=obsy,ymin=obsy-erry,ymax=obsy+erry),
+                width=0.01,alpha=0.4)+
+  geom_errorbarh(show.legend=FALSE,aes(x=obsx,y=obsy,xmin=obsx-errx,xmax=obsx+errx),
+                width=0.01,alpha=0.4)+
+  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL), alpha=0.95, fill=c("gray80"),show.legend=FALSE) +
+  geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.35, fill = c("gray50"),show.legend=FALSE) +
   geom_line(data=gdata,aes(x=xx,y=mean),colour="gray25",linetype="dashed",size=1,show.legend=FALSE)+
-  theme_bw()
+  theme_xkcd() +
+  ylab(expression(log(M[Bh]))) +
+  xlab(expression(log(sigma)))
 
 
