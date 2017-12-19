@@ -1,6 +1,3 @@
-# ADA8 – Astronomical Data Analysis Summer School
-# Bayesian tutorial by Rafael S. de Souza - ELTE, Hungary & COIN
-#
 # Partial example from Bayesian Models for Astrophysical Data 
 # by Hilbe, de Souza & Ishida, 2016, Cambridge Univ. Press
 #

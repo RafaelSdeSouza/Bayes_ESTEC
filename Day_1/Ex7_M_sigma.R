@@ -8,11 +8,13 @@
 #             central black hole mass and bulge velocity dispersion
 
 require(R2jags)
+require(ggplot2)
+source("../auxiliar_functions/jagsresults.R")
 # Data
 path_to_data = "data/M_sigma.csv"
 
 # Read data
-MS < -read.csv(path_to_data,header = T)
+MS <-read.csv(path_to_data,header = T)
 
 # Identify variables
 N <- nrow(MS) # number of data points
@@ -23,8 +25,8 @@ erry <- MS$erry # error on log black hole mass
 
 # Prepare data for prediction 
 M=500
-xx = seq(from =  min(obsx),
-         to =  max(obsx),
+xx = seq(from =  min(obsx)-0.1,
+         to =  max(obsx)+0.5,
          length.out = M)
 
 
@@ -92,6 +94,9 @@ NORM_fit <- jags(data = MS_data,
                  n.thin = 10,
                  n.burnin = 30000
 )
+
+jagsresults(x = NORM_fit, params=c("alpha","beta",'epsilon'))
+
 # Output
 #print(NORM_fit,justify = "left", digits=2)
 
@@ -103,17 +108,30 @@ normdata <- data.frame(obsx,obsy,errx,erry)
 gdata <- data.frame(x =xx, mean = yx[,"mean"],lwr1=yx[,"25%"],lwr2=yx[,"2.5%"],upr1=yx[,"75%"],upr2=yx[,"97.5%"])
 
 
+
 ggplot(normdata,aes(x=obsx,y=obsy))+ geom_point(colour="#de2d26",size=1,alpha=0.35)+
   geom_point(size=1.5,colour="red3") +
   geom_errorbar(show.legend=FALSE,aes(x=obsx,y=obsy,ymin=obsy-erry,ymax=obsy+erry),
-                width=0.01,alpha=0.4)+
-  geom_errorbarh(show.legend=FALSE,aes(x=obsx,y=obsy,xmin=obsx-errx,xmax=obsx+errx),
-                width=0.01,alpha=0.4)+
+                width=0.01,alpha=0.4,color="red3")+
+  geom_errorbarh(show.legend=FALSE,aes(x=obsx,y=obsy,xmin=obsx-errx,xmax=obsx+errx),alpha=0.4,color="red3")+
   geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL), alpha=0.95, fill=c("gray80"),show.legend=FALSE) +
   geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.35, fill = c("gray50"),show.legend=FALSE) +
   geom_line(data=gdata,aes(x=xx,y=mean),colour="gray25",linetype="dashed",size=1,show.legend=FALSE)+
-  theme_xkcd() +
   ylab(expression(log(M[Bh]))) +
-  xlab(expression(log(sigma)))
+  xlab(expression(log(sigma))) +
+  theme_bw()
+
+
+
+# Explore posteriors with mcmcplots
+require(ggmcmc)
+require(dplyr)
+
+S <- ggs(as.mcmc(NORM_fit)) %>%
+  filter(.,Parameter %in% c('alpha',"beta","epsilon"))
+
+ggplot(S,aes(x=value))+
+  geom_histogram(fill="orange") +
+  facet_wrap(~Parameter,nrow=3,scale="free") 
 
 
