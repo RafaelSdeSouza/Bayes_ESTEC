@@ -57,10 +57,10 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 
 -   Approximate Bayesian Computation
-    [Slides](https://www.dropbox.com/s/xxqt93biubpwkbp/Emille_ABC.pdf?dl=0)
-    [Examples in Python]()
+    [Slides](https://www.dropbox.com/s/xxqt93biubpwkbp/Emille_ABC.pdf?dl=0)  
+    [Examples in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_3/ABC)  
 
--   Model Selection
-    [Slides](https://www.dropbox.com/s/nua08dnr28xra78/Model_Selection.pdf?dl=0)
+-   Model Selection  
+    [Slides](https://www.dropbox.com/s/nua08dnr28xra78/Model_Selection.pdf?dl=0)  
 
 
