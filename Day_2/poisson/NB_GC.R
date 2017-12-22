@@ -12,7 +12,7 @@
 require(R2jags)
 require(ggplot2)
 require(scales)
-source("../../auxiliar_functions/jagsresults.R")
+source("..//Auxiliar_functions/jagsresults.R")
 
 path_to_data = "../data/GCs.csv"
 
@@ -20,7 +20,7 @@ path_to_data = "../data/GCs.csv"
 NGC_dat = read.csv(file=path_to_data,header = T,dec=".")
 
 # Look at the data
-head(GC_dat)
+head(NGC_dat)
 
 # Prepare data for prediction 
 M=500
@@ -46,7 +46,7 @@ model.NB <- "model{
 for (i in 1:K) { beta[i] ~ dnorm(0, 1e-5)}
 
 # Prior for size
-theta ~ dgamma(1e-3,1e-3)
+theta ~ dunif(0.01,100)
 
 # Likelihood
 for (i in 1:N){

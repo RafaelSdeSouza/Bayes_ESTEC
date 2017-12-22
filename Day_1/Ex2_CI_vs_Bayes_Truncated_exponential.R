@@ -14,14 +14,15 @@
 #########################################
 
 #library(extrafont)
-require(R2jags)
-require(mdatools)
-require(ggmcmc)
-require(survival)
+require(R2jags)   # Interface between R and Jags (similars: runjags,rjags,..)
+require(mdatools) # For maximum likelihood function
+require(ggmcmc)   # To manipulate and plot mcmc chains
+require(survival) # For survival analysis, i.e. fit exponential decay
+require(dplyr)    # For data-manipulation
 source("https://raw.githubusercontent.com/johnbaums/jagstools/master/R/jagsresults.R")
 
 ######################################################
-###  Plot truncated exponential
+###  Truncated exponential function
 
 p_exp <- Vectorize(function(x,theta){
     "Truncated exponential distribution"
@@ -32,20 +33,32 @@ p_exp <- Vectorize(function(x,theta){
     
     return(0)
 })
+### 
 
+
+### Generate some data for ploting 
 x <- seq(5,18,length.out = 1e3)
 g <- data.frame(x=x,y=p_exp(x,10))
+###
+
+
+### Base R plot
+plot(g,type="l")
+
+### ggplot style
 
 ggplot(g,aes(x=x,y=y)) +
   geom_line() +
   geom_area(fill="#f4901e") +
-#  theme_xkcd() +
-  xlab("Failiture time") +
-  ylab("px")
+ # theme_xkcd() +
+  xlab("Failure time") +
+  ylab("px") +
+ # theme(panel.background = element_rect(color = "black", fill = "gray85") ) 
 
 ######################################################
 
-# Simulate truncated exponential 
+###  Simulate truncated exponential data for fit
+
 y <- c(10,rexp(100) + 10)                # The first 10 ensures to have one single observation 
                                          # equal to theoretical minimum to test the 
                                          # Frequentist and Bayesian approach against a hard coded scenario
@@ -118,7 +131,11 @@ S <- ggs(as.mcmc(Surv_fit)) %>%                     # format data for easy plott
   filter(.,Parameter == "theta")
 
 
-# Plot chains
+###  Plot via base R
+
+hist(S$value)
+
+### Plot chains via ggplot
 ggplot(S,aes(x=value)) +
          geom_histogram(fill = "#f4901e",bins= 50,aes(y=..count../sum(..count..))) +
          # theme_xkcd() +
