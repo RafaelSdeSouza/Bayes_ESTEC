@@ -57,6 +57,9 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 ## Day 3 - Advanced topics (TBD)
 
 
+-    Questions and Answers
+     [Slides](https://www.dropbox.com/s/lfhnsxspwn8rtrn/QeA.pdf?dl=0)
+
 -   Approximate Bayesian Computation
     [Slides](https://www.dropbox.com/s/xxqt93biubpwkbp/Emille_ABC.pdf?dl=0)  
     [Examples in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_3/ABC)  
