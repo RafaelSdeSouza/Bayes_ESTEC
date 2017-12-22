@@ -27,12 +27,14 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 ## Day 2 - Generalized Linear Models  
 
 -    Normal models  
-     [Examples in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_2/Normal)  
+     [Example in R using JAGS errors-in-measurements](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/Ex1_Errors_in_measurements.R)   
+    [Examples in R using JAGS  M-sigma relation](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/Ex2_M_sigma.R)
+     
      [Examples in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_2/Normal/python)  
      [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/references_continuos.md)  
 
--    Time series  
-     [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/Ex3_sunspot_time_series.R)  
+-    Time series AR(1) model  
+     [Example in R using JAGS](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/Ex3_sunspot_time_series.R)  
      [Example in Python](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Normal/python/Ex3_sunspot_time_series.py)  
 
 -    Gamma model  
@@ -48,7 +50,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 -    Poisson model  
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/poisson_fit.R)  
 
-- Negative binomial model
+-  Negative binomial model
 [Population of globular Clusters in R using JAGS](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/NB_GC.R)
 
 -    [Mixed models](https://www.bayesianmodelsforastrophysicaldata.com/code-8-1-and-8-2) 
