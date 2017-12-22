@@ -65,5 +65,5 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -   Model Selection  
     [Slides](https://www.dropbox.com/s/nua08dnr28xra78/Model_Selection.pdf?dl=0)  
-
+    [Bernoulli prior example in python](https://www.bayesianmodelsforastrophysicaldata.com/code-9-4)
 
