@@ -6,19 +6,21 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -   Bayesian x Frequentists  
 
-    [Slides](https://docs.google.com/presentation/d/1Rwj_rFhlWA1eCrQNaB4Xrmx5163Iyy26hughzB4uKek/edit?usp=sharing)  
+    [Slides](https://www.dropbox.com/s/ticl3e8ffk9n5tu/Bayes_vs_Frequentist.pdf?dl=0)  
     [Example 1](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex1_CI_vs_Bayes_Normal.R) - *Confidence Intervals vs Credible Intervals - Normal distribution in R*   
     [Example 2](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex2_CI_vs_Bayes_Truncated_exponential.R) - *Confidence Intervals vs Credible Intervals - Truncated exponential in R*  
     [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/references.md)  
 
 -   Monte Carlo Markov Chain  
-    [Slides](https://docs.google.com/presentation/d/1sXRPlQdwNc8IXRoouGJg_2LIzB-kMMLzV7FCJhFZBBM/edit?usp=sharing)  
+    [Slides](https://www.dropbox.com/s/5k6tiswbr2gga8w/MCMC.pdf?dl=0)  
+    [MCMC animmation](https://www.dropbox.com/s/25i9mvzia0zmx5y/mcmc.mov?dl=0)
     [Example 3](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex3_my_MCMC_normal_hist.R) - *My first MCMC - Normal distribution in R*  
     [Example 3b](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex3b_my_MCMC_normal_hist.py) - *My first MCMC - Normal distribution in Python*  
     [Example 4](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex4_my_MCMC_lm.R) - *My first MCMC - linear regression in R*  
     [References](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/references_mcmc.md)  
 
 -   Just Another Gibbs Sampler  
+    [Slides](https://www.dropbox.com/s/57ovmowu97qkwvh/Tools.pdf?dl=0)
     [Example 5](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.R) - *Normal model in R using JAGS*  
     [Example 5b](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.py) - *Normal model in Python using JAGS*  
     [Example 6](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex6_normal_JAGS_x1_quadratic_cubic.R) - *Normal model in R  using JAGS - higher order*  
@@ -26,6 +28,8 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
     [Example 8](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex8_JAGS_Black_body.R) - *Lognormal model in R using JAGS - Black body*  
 
 ## Day 2 - Generalized Linear Models  
+
+-    [Slides](https://www.dropbox.com/s/fhwrodqloq8ur2m/GLMs.pdf?dl=0)
 
 -    Normal models  
      [Examples in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/tree/master/Day_2/Normal)  
@@ -48,9 +52,6 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 
 -    Poisson model  
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/poisson_fit.R)  
-
--    Mixed models  
--    Hierarchical models  
 
 
 ## Day 3 - Advanced topics (TBD)
