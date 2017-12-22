@@ -22,8 +22,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
     [Example 5](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.R) - *Normal model in R using JAGS*  
     [Example 5b](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex5_normal_JAGS_x1.py) - *Normal model in Python using JAGS*  
     [Example 6](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex6_normal_JAGS_x1_quadratic_cubic.R) - *Normal model in R  using JAGS - higher order*  
-    [Example 7](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex7_normal_JAGS_HubbleResiduals.R) - *Normal model in R using JAGS - Hubble Residuals*  
-    [Example 8](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_1/Ex8_JAGS_Black_body.R) - *Lognormal model in R using JAGS - Black body*  
+
 
 ## Day 2 - Generalized Linear Models  
 
@@ -40,7 +39,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Gamma/Gamma_fit.R)  
 
 -    Lognormal model  
-     [Example in R - black body](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Lognormal/Ex1_JAGS_Black_body.R)  
+     [Example in R using JAGS- black body](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Lognormal/Ex1_JAGS_Black_body.R)  
 
 -    Bernoulli model  
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/Bernoulli/Bern_fit.R)  
@@ -49,7 +48,7 @@ by [Rafael da Silva de Souza](https://www.rafaelsdesouza.com)  and [Emille E. O.
 -    Poisson model  
      [Example in R](https://github.com/RafaelSdeSouza/Bayes_ESTEC/blob/master/Day_2/poisson/poisson_fit.R)  
 
--    Mixed models  
+-    Mixed models (https://www.bayesianmodelsforastrophysicaldata.com/code-8-1-and-8-2)  
 -    Hierarchical models  
 
 
