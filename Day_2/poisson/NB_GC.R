@@ -12,7 +12,7 @@
 require(R2jags)
 require(ggplot2)
 require(scales)
-source("..//Auxiliar_functions/jagsresults.R")
+source("../../auxiliar_functions/jagsresults.R")
 
 path_to_data = "../data/GCs.csv"
 

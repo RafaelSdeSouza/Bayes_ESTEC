@@ -9,7 +9,7 @@ require(ggthemes)
 
 
 
-path_to_data = 'https://raw.githubusercontent.com/astrobayes/BMAD/master/data/Section_10p6/Red_spirals.csv'
+path_to_data = '../data/Red_spirals.csv'
 
 # Read data
 Red <- read.csv(path_to_data,header=T)
