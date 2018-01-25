@@ -29,8 +29,8 @@ xx = seq(from =  min(x),
 
 
 ############### Construct data dictionary
-X <- model.matrix(~ x)
-XX <- model.matrix(~ xx)
+X <- model.matrix(~ x + I(x^2))
+XX <- model.matrix(~ xx + I(xx^2))
 
 K <- ncol(X)
 logit_data <- list(Y  = y, # Response variable
@@ -108,9 +108,9 @@ ggplot(logitmod,aes(x=x,y=y))+
   geom_ribbon(data=gdata,aes(x=xx,ymin=lwr1, ymax=upr1,y=NULL), alpha=0.95, fill=c("#969696"),show.legend=FALSE) +
   geom_ribbon(data=gdata,aes(x=xx,ymin=lwr2, ymax=upr2,y=NULL), alpha=0.65, fill = c("#d9d9d9"),show.legend=FALSE) +
   geom_line(data=gdata,aes(x=xx,y=mean),colour="gray25",linetype="dashed",size=1,show.legend=FALSE)+
-  geom_point(aes(x=x,y=y),size=2.5,data=gbin,colour="#de2d26")+
-  geom_errorbar(data=gbin,aes(x=x,y=y,ymin=y-2*means.se,ymax=y+2*means.se),alpha=0.85,
-                colour="#de2d26",width=0.005)+
+#  geom_point(aes(x=x,y=y),size=2.5,data=gbin,colour="#de2d26")+
+#  geom_errorbar(data=gbin,aes(x=x,y=y,ymin=y-2*means.se,ymax=y+2*means.se),alpha=0.85,
+  #                colour="#de2d26",width=0.005)+
   theme_bw() +
   #  ylab(expression(N[red]/N[Spirals]))+
   ylab(expression(p[red]))+
